@@ -19,22 +19,30 @@ const handleTextInput = (e: Event) => {
   }
 };
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "@create", entry: Entry): void;
 }>();
+
+const handleSubmit = () => {
+  emit('@create', {
+      body: text.value,
+      emoji: emoji.value,
+      createdAt: new Date(),
+      userId: 1,
+      id: Math.random()
+  });
+  text.value = "";
+  emoji.value = null
+}
+
 
 </script>
 <template>
   <form
     class="entry-form"
-    @submit.prevent="$emit('@create', {
-      body: text,
-      emoji,
-      createdAt: new Date(),
-      userId: 1,
-      id: Math.random()
-    })"
-  >
+    @submit.prevent="handleSubmit">
+
+
     <textarea
       :value="text"
       @keyup="handleTextInput"
