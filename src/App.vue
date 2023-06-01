@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import TheHeader from "@/components/TheHeader.vue";
-import EntryEditor from "./components/EntryEditor.vue";
+import EntryEditor from "@/components/EntryEditor.vue";
 import EntryCard from "@/components/EntryCard.vue";
 
 import {reactive} from 'vue';
 
 import type User from './types/User'
+import type Entry from "./types/Entry";
 
 const user: User = reactive({
   id: 1,
   username: "Marcin Bieniek",
-  settings: ["asd"]
+  settings: []
 })
+
+const handleCreateEntry = (entry: Entry) => {
+  console.log('entry is', entry)
+}
 
 </script>
 
 <template>
   <main class="container m-auto p-10">
     <TheHeader />
-    <EntryEditor />
+    <EntryEditor @@create="handleCreateEntry"/>
     <ul>
       <li>
         <EntryCard />
