@@ -2,7 +2,7 @@
 import EmojiField from "@/components/EmojiField.vue";
 import ArrowCircleRight from "@/assets/icons/arrow-circle-right.svg";
 import type Emoji from "@/types/Emoji";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import type Entry from "@/types/Entry";
 
 const text = ref("");
@@ -35,6 +35,9 @@ const handleSubmit = () => {
   emoji.value = null
 }
 
+const textarea = ref<HTMLTextAreaElement | null>(null)
+
+onMounted(() => textarea.value?.focus())
 
 </script>
 <template>
@@ -42,8 +45,8 @@ const handleSubmit = () => {
     class="entry-form"
     @submit.prevent="handleSubmit">
 
-
     <textarea
+      ref="textarea"
       :value="text"
       @keyup="handleTextInput"
       placeholder="New Journal Entry for danielkelly_io"
